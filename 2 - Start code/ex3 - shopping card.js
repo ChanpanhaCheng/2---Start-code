@@ -21,10 +21,14 @@ const SHOPPING_CART = [
 function getCartTotalAmount() {
   let result = 0;
   // Write your code here
- const item=PRODUCTS.filter((id)=>{return id.id ==1 || id.id ==3})
+  for(let item of SHOPPING_CART){
+    let product=PRODUCTS.find((p)=>p.id===item.id);
+    if(product){
+      result+=product.price*item.quantity;
+    }
+
+  }
   return result;
-  console.log(item);
- 
 }
 
 /**
@@ -39,8 +43,15 @@ function getCartTotalAmount() {
  * @param {*} productId  the product id to add
  */
 function addProductToCart(productId) {
-  // Write your code here
+  let cartItem = SHOPPING_CART.find((item) => item.id === productId);
+
+  if (cartItem) {
+    cartItem.quantity += 1; // If product exists, increase quantity
+  } else {
+    SHOPPING_CART.push({ id: productId, quantity: 1 }); // Otherwise, add new product
+  }
 }
+
 
 /**
  *  TODO  : Complete this function to remove a product from the shopping cart
@@ -57,7 +68,15 @@ function addProductToCart(productId) {
  * @param {*} productId  the product id to add
  */
 function removeProductFromCart(productId) {
-  // Write your code here
+  let index = SHOPPING_CART.findIndex((item) => item.id === productId);
+
+  if (index !== -1) {
+    if (SHOPPING_CART[index].quantity > 1) {
+      SHOPPING_CART[index].quantity -= 1; // Decrease quantity if more than 1
+    } else {
+      SHOPPING_CART.splice(index, 1); // Remove item if quantity is 1
+    }
+  }
 }
 
 // --------------------------------------------------------

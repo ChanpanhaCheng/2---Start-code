@@ -14,9 +14,9 @@ function transformToObjects(listOfNumbers) {
   result = [];
   
   // Write your code here
-  for(let num of listOfNumbers){
-    result.push({val:num});
-  }
+result = listOfNumbers.map(number => {
+  return {val : number}
+});
 
   return result;
 }
